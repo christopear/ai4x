@@ -2,3 +2,5 @@ tensorflow
 keras
 jupyter
 numpy
+pygame
+h5py
