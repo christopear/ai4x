@@ -1,22 +1,7 @@
 import numpy as np
 
-BUILD_MOVE_LIST = []
-TECH_MOVE_LIST = []
+from Game import Game
 
-
-class Resource:
-    TILE_TYPES = [None, 'fruit']
-    TILE_CHARS = {
-        None: ' ',
-        'fruit': 'b',
-    }
-    ENCODING_SIZE = len(TILE_CHARS)
-
-    def __init__(self, tile_type=None):
-        self.tile_type = tile_type if tile_type else 'fruit'
-
-    def __str__(self):
-        return Tile.TILE_CHARS[self.tile_type]
 
 class Tile:
     TILE_TYPES = ['ocean', 'field', 'cloud', 'city']
@@ -73,26 +58,11 @@ class Map:
 
 
 class Unit:
-    ENCODING_SIZE = 8
+    ENCODING_SIZE = 2
 
-    def __init__(self,
-                 attack,
-                 defence,
-                 movement,
-                 hp,
-                 movement_range,
-                 unit_cost,
-                 can_dash,
-                 team=None,
-                 ):
-        self.attack = attack
-        self.defence = defence
+    def __init__(self, movement, team=None):
         self.movement = movement
-        self.hp = hp
-        self.movement_range = movement_range
-        self.unit_cost = unit_cost
         self.team = team
-        self.can_dash = can_dash
 
 
 class Input:
@@ -101,11 +71,8 @@ class Input:
         self.n_cols = n_cols
 
         self.unit_pieces = np.zeros((self.n_rows, self.n_cols, Unit.ENCODING_SIZE))
-        self.resource_pieces = np.zeros((self.n_rows, self.n_cols, Resource.ENCODING_SIZE))
         self.map_pieces = np.zeros((self.n_rows, self.n_cols, Tile.ENCODING_SIZE))
 
-        self.coins = 0
-        self.coins_per_turn = 0
         self.turn = 0
         self.score = 0
 
@@ -116,15 +83,18 @@ class Output:
         self.n_cols = n_cols
 
         unit_shape = n_rows * n_cols
-        map_shape = n_rows * n_cols
-        move_to = n_rows * n_cols
-        build_moves = len(BUILD_MOVE_LIST)
-        tech_moves = len(TECH_MOVE_LIST)
         end_turn = 1
 
         # and return a penalty if the move is not possible?
 
 
+class Ai4x(Game):
+    pass
+
+
 if __name__ == '__main__':
     map = Map(5, 10)
     print(map)
+
+
+
